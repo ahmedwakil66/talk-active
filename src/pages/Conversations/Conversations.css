@@ -1,0 +1,26 @@
+/* .conversation_link_ul .conversation_link_list:first-child{
+    border-top: 1px solid;
+    border-color:  var(--gray-thin);
+} */
+
+.conversation_link_list {
+    list-style-type: none;
+    border-bottom: 1px solid;
+}
+
+
+.conversation_link {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    text-decoration: none;
+    transition: .3s all;
+}
+
+.conversation_link img {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}

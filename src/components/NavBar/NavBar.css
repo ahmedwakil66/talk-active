@@ -1,0 +1,46 @@
+.nav-ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-btn {
+    background-color: transparent;
+    outline: transparent;
+    border: transparent;
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+}
+
+.nav-btn.active {
+    width: 33px;
+    height: 33px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .nav-ul {
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 667px) {
+    .nav-ul {
+        gap: 1.5rem;
+    }
+
+    .nav-btn {
+        width: 20px;
+        height: 20px;
+    }
+
+    .nav-btn.active {
+        width: 26px;
+        height: 26px;
+    }
+
+}

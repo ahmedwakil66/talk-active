@@ -1,0 +1,69 @@
+*::selection{
+    background-color: black;
+    color: white;
+  }
+
+/* CONVERSATION WELCOME SCREEN */
+.conversation_welcome .greeting {
+    background-color: rgba(7, 0, 0, 0.1);
+}
+
+.conversation_welcome .greeting::before {
+    background-color: white;
+}
+
+.conversation_welcome .greeting .welcome {
+    background-color: white;
+}
+
+
+
+/* CONVERSATIONS STARTS */
+.conversation_link_list {
+    border-color: var(--gray-thin);
+}
+
+.conversation_link {
+    color: var(--black-deep);
+}
+
+.conversation_link:hover {
+    background-color: antiquewhite;
+}
+
+
+
+
+/* CONVERSION STARTS */
+.conversation_container {
+    background-image: url("https://i.ibb.co/cvb9vXW/bgchatlightblur.jpg");
+}
+
+.send_container {
+    background-color: white;
+}
+
+
+
+/* SINGLE MESSAGE STYLES */
+.single_message {
+    color: black;
+    background-color: rgba(127, 255, 212, 0.9);
+}
+
+
+
+
+/* SEND MESSAGE STARTS */
+.send_message_form textarea {
+    color: var(--black-deep);
+}
+
+.send_message_form button:hover {
+    background-color: rgb(59, 51, 51);
+    color: white;
+}
+
+.send_message_container input[type="file"] {
+    background-color: rgb(156, 146, 146);
+}

@@ -1,0 +1,107 @@
+
+.send_message_form{
+    display: flex;
+    gap: 1rem;
+}
+
+.send_message_form textarea{
+    display: block;
+    resize: vertical;
+    flex-grow: 1;
+    border: 2px solid;
+    border-radius: 7px;
+    font-size: 1.1rem;
+    padding: .8rem;
+    background-color: transparent;
+}
+
+.send_message_form textarea:focus{
+    outline: transparent;
+}
+
+.send_message_form button{
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: .8rem 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 7px;
+    background-color: transparent;
+}
+
+.send_message_container .file_div{
+    margin-top: 5px;
+}
+
+.send_message_container .file_label{
+    padding: 12px;
+    border: 1px solid;
+    border-color: var(--gray-deep);
+    border-right: 0;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    cursor: pointer;
+    color: var(--white-light);
+    background-color: rgb(19, 19, 19);
+}
+
+.send_message_container input[type="file"]{
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: var(--gray-deep);
+    border-left: 0;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin-right: -1px;
+    color: white;
+}
+
+
+.send_message_form .send_icon{
+    width: 25px;
+    height: 25px;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .send_message_form textarea{
+        padding: 12px;
+    }
+
+    .send_message_form button{
+        font-size: 12px;
+        padding: 5px 13px;
+        gap: 7px;
+    }
+
+    .send_message_form .send_icon{
+        width: 15px;
+        height: 15px;
+    }
+
+    .send_message_container .file_label{
+        padding: 10px;
+    }
+    
+    .send_message_container input[type="file"]{
+        padding: 8px;
+    }
+
+    .file_div{
+        display: grid;
+        grid-template-columns: 2fr 4fr;
+    }
+    
+}
+
+@media screen and (max-width: 667px) {
+    .send_message_form{
+        gap: 10px;
+    }
+    
+}

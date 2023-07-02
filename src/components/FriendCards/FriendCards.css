@@ -1,0 +1,26 @@
+/* FRIEND CARD MINI STYLES STARTS*/
+.friend_card_mini{
+    display: block;
+    color: inherit;
+    padding: .5rem;
+    border-radius: 1rem;
+    box-shadow:  0 0 5px;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.friend_card_mini img{
+    display: block;
+    width: 109px;
+    height: 109px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: .6rem;
+}
+
+.friend_card_mini .person-name{
+    font-size: 13px;
+}
+/* FRIEND CARD MINI STYLES ENDS*/

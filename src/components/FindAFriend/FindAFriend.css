@@ -1,0 +1,44 @@
+.find_a_friend{
+    border-bottom: 1px solid;
+    padding-bottom: 2rem;
+}
+
+.search_field{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.find_a_friend .search_field input{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    outline: transparent;
+}
+
+
+/* found friend styles */
+.found_friend{
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.found_friend img{
+    width: 100%;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.found_friend .person-name{
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.found_friend .my-btn-sm{
+    border: transparent;
+    outline: transparent;
+    border-radius: 5px;
+}

@@ -1,0 +1,32 @@
+.friend_requests_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
+    gap: 1rem;
+    justify-content: center;
+}
+
+.friend_request_card {
+    color: inherit;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow:  0 0 5px;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.friend_request_card img {
+    width: 100%;
+    border-radius: 7px;
+}
+
+.friend_request_card .person-name {
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+
+.friend_request_card button {
+    margin-top: 7px;
+    padding: 5px 10px;
+}

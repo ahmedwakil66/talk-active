@@ -1,0 +1,32 @@
+.second-layout{
+    display: grid;
+    grid-template-columns: 300px auto;
+    height: 100%;
+    position: relative;
+}
+
+.second-layout .side-panel{
+    height: 100%;
+    padding: 2rem 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+
+@media screen and (max-width: 667px) {
+    .second-layout{
+        grid-template-columns: auto;
+    }
+
+    .second-layout .side-panel{
+        position: absolute;
+        background-color: rgba(128, 128, 128, 0.9);
+        width: 100%;
+        z-index: 50;
+    }
+
+    .d-none-sm{
+        display: none;
+    }
+}

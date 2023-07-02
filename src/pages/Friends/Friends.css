@@ -1,0 +1,19 @@
+.friends_page{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.friends_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 125px));
+    gap: 1rem;
+    justify-content: center;
+}
+
+
+/* @media screen and (max-width: 667px) {
+    .friends_container{
+        justify-content: center;
+    }
+} */

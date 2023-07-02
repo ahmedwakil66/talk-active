@@ -1,0 +1,48 @@
+
+.single_message_wrapper .profile_image{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.single_message_wrapper.user .profile_image{
+    margin-right: 10px;
+}
+.single_message_wrapper.friend .profile_image{
+    margin-left: 10px;
+}
+
+.single_message{
+    max-width: max(250px, 70%);
+    padding: 10px 15px;
+    border-radius: 1.5rem;
+    margin: 15px 10px;
+    margin-top: 0;
+    font-weight: 600;
+    width: fit-content;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid;
+}
+
+.single_message.user_text{
+    border-bottom-right-radius: 0;
+    margin-left: auto;
+}
+
+.single_message.friend_text{
+    border-top-left-radius: 0;
+}
+
+.single_message .image{
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .single_message{
+        font-size: 14px;
+    }
+}
