@@ -1,4 +1,5 @@
 import './Conversation.css';
+import { io } from 'socket.io-client';
 import { useParams } from "react-router-dom";
 import SendMessage from '../../components/SendMessage/SendMessage';
 import { useQuery } from '@tanstack/react-query';
@@ -8,10 +9,12 @@ import useUser from '../../hooks/useUser';
 import SingleMessage from '../../components/SingleMessage/SingleMessage';
 import { useEffect, useRef, useState } from 'react';
 
+const socket = io.connect('http://localhost:5000');
 
 const Conversation = () => {
     const { loading } = useAuth();
     const chatContainerRef = useRef();
+    const [messages, setMessages] = useState([]);
     const [statusText, setStatusText] = useState(null);
     const { data: user, userId, isLoading: isUserLoading } = useUser();
     const { axiosSecure } = useAxiosSecure();
@@ -28,16 +31,40 @@ const Conversation = () => {
     });
 
 
-    //get the conversation between the user and receiver
-    const { data: messages = [], refetch } = useQuery({
-        enabled: !isUserLoading,
-        queryKey: [`${receiverId}`, receiverId],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/messages/${userId}+${receiverId}`);
-            setStatusText(null);
-            return res.data;
+    //get the conversation between the user and receiver on initial load
+    // const { data: messages = [], refetch } = useQuery({
+    //     enabled: !isUserLoading,
+    //     queryKey: [`${receiverId}`, receiverId],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/messages/${userId}+${receiverId}`);
+    //         setStatusText(null);
+    //         return res.data;
+    //     }
+    // }) //new version below for socket.io . this part will be deleted
+    useEffect(() => {
+        (async () => {
+            if (!isUserLoading) {
+                const res = await axiosSecure.get(`/messages/${userId}+${receiverId}`);
+                setMessages(res.data);
+            }
+        })();
+    }, [isUserLoading, userId, receiverId, axiosSecure])
+
+    //registering to websocket to get new message in real time
+    useEffect(() => {
+        socket.on('receiveMessage', data => {
+            console.log('socket data msg', data);
+            setMessages(prev => [data, ...prev])
+        })
+        return () => {
+            socket.off('receiveMessage')
         }
-    })
+    }, [])
+
+    //renders recently sent message in the chat box
+    const handleSetNewMessage = (newMessageOffline) => {
+        setMessages([newMessageOffline, ...messages])
+    }
 
 
     //auto scroll to the bottom of chat
@@ -46,8 +73,9 @@ const Conversation = () => {
             const chatContainer = chatContainerRef.current;
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages.length])
+
 
 
     if (loading || isLoading) {
@@ -68,7 +96,7 @@ const Conversation = () => {
             <div className="conversation_container" ref={chatContainerRef}>
                 <div className='messages' >
                     {
-                        [...messages].reverse().map(message => <SingleMessage key={message._id} message={message} userId={userId} receiver={receiver} user={user}/>)
+                        [...messages].reverse().map(message => <SingleMessage key={message._id} message={message} userId={userId} receiver={receiver} user={user} />)
                     }
                 </div>
             </div>
@@ -76,7 +104,7 @@ const Conversation = () => {
             <div
                 className='send_container'
             >
-                <SendMessage receiverId={receiverId} refetchMessage={refetch} setStatusText={setStatusText} />
+                <SendMessage receiverId={receiverId} setStatusText={setStatusText} socket={socket} handleSetNewMessage={handleSetNewMessage} />
             </div>
         </div>
     );

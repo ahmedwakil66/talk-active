@@ -5,11 +5,30 @@ import Swal from 'sweetalert2';
 import useTheme from '../../hooks/useTheme';
 import { toast } from 'react-hot-toast';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const SendMessage = ({ receiverId, refetchMessage, setStatusText }) => {
+const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage }) => {
     const { isDarkTheme } = useTheme();
     const { axiosSecure } = useAxiosSecure();
     const { userId: senderId } = useUser();
+    const [roomId, setRoomId] = useState('');
+    
+    //connect to socket.io target room
+    useEffect(() => {
+        let roomId;
+        if(senderId){
+            roomId = [senderId, receiverId].sort().join('_');
+            socket.emit('joinRoom', {roomId: roomId})
+            setRoomId(roomId);
+        }
+        return () => {
+            if(roomId){
+                socket.emit('leaveRoom', {roomId: roomId})
+            }
+        }
+    }, [senderId, receiverId]) //omitting socket as dependency for now
+
 
     const handleSendMessage = async (event) => {
         event.preventDefault();
@@ -75,7 +94,10 @@ const SendMessage = ({ receiverId, refetchMessage, setStatusText }) => {
 
             if (res && res.data && res.data.insertedId) {
                 setStatusText('Message sent');
-                refetchMessage();
+                // this _id is temporary, used only for updating message in offline version
+                newMessage._id = uuidv4();////
+                handleSetNewMessage(newMessage);
+                socket.emit('sendMessage', {newMessage, roomId});
                 form.reset();
             } else {
                 toast.error('Something went wrong. Please try again.');
