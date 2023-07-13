@@ -7,9 +7,22 @@ const ThemeProvider = ({children}) => {
     const [isDarkTheme, setIsDarkTheme] = useState(false);
 
     const toggleTheme = () => {
-        setIsDarkTheme(previous => !previous)
+        setIsDarkTheme(previous => {
+            localStorage.setItem('isTalkActiveDarkTheme', JSON.stringify({isDarkTheme: !previous}));
+            return !previous
+        })
     }
 
+    // persist theme on page reload
+    useEffect( () => {
+        const localValue = localStorage.getItem('isTalkActiveDarkTheme');
+        if(localValue){
+            const localTheme = JSON.parse(localValue);
+            setIsDarkTheme(localTheme.isDarkTheme);
+        }
+    }, [])
+
+    //handle theme change
     useEffect(() => {
         const link = document.createElement('link');
         link.href = isDarkTheme ? '/darkTheme.css' : '/lightTheme.css';

@@ -28,7 +28,7 @@ const useAxiosSecure = () => {
             if(error.response && error.response.status === 401){
                 logOut()
                 .then(() => {
-                    toast('Session expired');
+                    // toast('Session expired');
                     navigate('/sign-in', {state: {from: location}});
                 })
                 .catch(error => toast.error(error.message))
