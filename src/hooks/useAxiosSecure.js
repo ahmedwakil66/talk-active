@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import useAuth from "./useAuth";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { baseUrl } from "../utilities/URLs";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: baseUrl,
 })
 
 const useAxiosSecure = () => {

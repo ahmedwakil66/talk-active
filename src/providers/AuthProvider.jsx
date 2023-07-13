@@ -1,10 +1,11 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../../firebase.config";
+import { baseUrl } from "../utilities/URLs";
 
 export const AuthContext = new createContext(null);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -21,22 +22,28 @@ const AuthProvider = ({children}) => {
     const logOut = () => signOut(auth);
 
 
-    useEffect( () => {
+    useEffect(() => {
         const unSub = onAuthStateChanged(auth, user => {
             setUser(user);
-            setLoading(false);
-            console.log(user)
 
             //request for a jwt token
-            fetch('http://localhost:5000/jwt', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({user: {email: user.email}})
-            })
-            .then(res => res.json())
-            .then(data => localStorage.setItem('talkActive-token', data.token))
+            if (user) {
+                fetch(`${baseUrl}/jwt`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ user: { email: user.email } })
+                })
+                    .then(res => res.json())
+                    .then(data => localStorage.setItem('talkActive-token', data.token))
+            }
+            else {
+                localStorage.removeItem('talkActive-token');
+            }
+
+            //no more loading
+            setLoading(false);
         })
         return unSub;
     }, [])

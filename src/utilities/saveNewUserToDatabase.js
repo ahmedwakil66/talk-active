@@ -1,9 +1,10 @@
 import { toast } from "react-hot-toast";
+import { baseUrl } from "./URLs";
 
 const saveNewUserToDatabase = async (newUser, toastId) => {
     let mongoData;
 
-    await fetch('http://localhost:5000/users', {
+    await fetch(`${baseUrl}/users`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'

@@ -1,8 +1,8 @@
 import './Loader.css';
 
-const Loader = () => {
+const Loader = ({text}) => {
     return (
-        <div className='loader'>Loading...</div>
+        <div className='loader'> {text || 'Loading...'} </div>
     );
 };
 

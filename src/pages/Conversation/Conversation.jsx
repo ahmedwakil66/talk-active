@@ -8,8 +8,9 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useUser from '../../hooks/useUser';
 import SingleMessage from '../../components/SingleMessage/SingleMessage';
 import { useEffect, useRef, useState } from 'react';
+import { baseUrl } from '../../utilities/URLs';
 
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect(baseUrl);
 
 const Conversation = () => {
     const { loading } = useAuth();
