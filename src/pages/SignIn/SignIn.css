@@ -305,6 +305,11 @@
     background: transparent;
     border: none;
     box-shadow: 0 0 0;
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    top: 40%;
+    right: 0;
 }
 
 

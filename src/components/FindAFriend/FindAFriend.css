@@ -3,9 +3,10 @@
     padding-bottom: 2rem;
 }
 
-.search_field{
+.find_a_friend .search_field{
     display: grid;
     grid-template-columns: 3fr 1fr;
+    padding: 0 10px;
 }
 
 .find_a_friend .search_field input{

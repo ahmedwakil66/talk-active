@@ -26,6 +26,17 @@ const AuthProvider = ({children}) => {
             setUser(user);
             setLoading(false);
             console.log(user)
+
+            //request for a jwt token
+            fetch('http://localhost:5000/jwt', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({user: {email: user.email}})
+            })
+            .then(res => res.json())
+            .then(data => localStorage.setItem('talkActive-token', data.token))
         })
         return unSub;
     }, [])

@@ -16,8 +16,16 @@ const FindAFriend = ({ title }) => {
 
     const handleSearch = async (event) => {
         event.preventDefault();
-        setErrMsg('Searching...');
         const queryEmail = event.target.query.value;
+        if (queryEmail === '') {
+            Swal.fire(
+                'Error!',
+                'Type a valid email to search!',
+                'error'
+            )
+            return;
+        }
+        setErrMsg('Searching...');
         const res = await axiosSecure.get(`/users/find-by-email/${queryEmail}?finderEmail=${user?.email}`);
         if (res.data && !res.data.error) {
             setErrMsg('');
@@ -43,13 +51,13 @@ const FindAFriend = ({ title }) => {
 
             {errMsg && <p style={{ textAlign: 'center', marginTop: '1rem' }}>{errMsg}</p>}
 
-            {foundUser && <FoundUserCard foundUser={foundUser} searchBtn={searchBtnRef.current}/>}
+            {foundUser && <FoundUserCard foundUser={foundUser} searchBtn={searchBtnRef.current} userEmail={user?.email} />}
         </div>
     );
 };
 
 
-const FoundUserCard = ({ foundUser, searchBtn }) => {
+const FoundUserCard = ({ foundUser, searchBtn, userEmail }) => {
     const { axiosSecure } = useAxiosSecure();
     const [disable, setDisable] = useState(false);
     const { userId: senderId } = useUser();
@@ -58,8 +66,8 @@ const FoundUserCard = ({ foundUser, searchBtn }) => {
     const handleSendFriendRequest = async () => {
         setDisable(true);
         const toastId = toast.loading('Checking');
-        const res = await axiosSecure.patch('/users/friend-request', {senderId, receiverId});
-        if(res.data && res.data.modifiedCount > 1){
+        const res = await axiosSecure.patch('/users/friend-request', { senderId, receiverId });
+        if (res.data && res.data.modifiedCount > 1) {
             toast.remove(toastId);
             searchBtn.click();
             Swal.fire({
@@ -68,10 +76,10 @@ const FoundUserCard = ({ foundUser, searchBtn }) => {
                 title: 'Friend request sent',
                 showConfirmButton: false,
                 timer: 1500
-              })
+            })
         }
-        else{
-            toast.error('Some error occurred! Please try again.', {id: toastId})
+        else {
+            toast.error('Some error occurred! Please try again.', { id: toastId })
         }
     }
 
@@ -80,9 +88,9 @@ const FoundUserCard = ({ foundUser, searchBtn }) => {
             <img src={foundUser?.image} alt="" />
             <h4 className='person-name'>{foundUser?.name}</h4>
             {
-                (foundUser?.isALreadyFriend || foundUser?.finderSentFriendRequest || foundUser?.finderReceivedFriendRequest) ||
+                (foundUser?.isALreadyFriend || foundUser?.finderSentFriendRequest || foundUser?.finderReceivedFriendRequest || foundUser.email === userEmail) ||
                 <button
-                disabled={disable}
+                    disabled={disable}
                     onClick={handleSendFriendRequest}
                     className='my-btn-sm'
                 >

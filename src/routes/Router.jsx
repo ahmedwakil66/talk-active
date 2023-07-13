@@ -5,11 +5,12 @@ import SecondLayout from "../layouts/SecondLayout";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import ConversationWelcomeAndInfo from "../components/ConversationWelcomeAndInfo/ConversationWelcomeAndInfo";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <FirstLayout />,
+        element: <PrivateRoute><FirstLayout /></PrivateRoute>,
         children: [
             {
                 path: '/',

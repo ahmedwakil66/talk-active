@@ -174,14 +174,14 @@ const SignUp = () => {
                                 />
                             </svg>
                         </div>
-                        <div style={{ position: 'absolute', right: '0', top: '40%' }} className="show-hide-pass">
+                        <div className="show-hide-pass">
                             {
                                 showPass ?
                                     <button type="button" onClick={() => setShowPass(prev => !prev)}>
-                                        <EyeSlashIcon size={20} />
+                                        <EyeSlashIcon />
                                     </button> :
                                     <button type="button" onClick={() => setShowPass(prev => !prev)}>
-                                        <EyeIcon size={20} />
+                                        <EyeIcon />
                                     </button>
                             }
                         </div>

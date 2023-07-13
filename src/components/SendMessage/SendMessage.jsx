@@ -13,18 +13,18 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
     const { axiosSecure } = useAxiosSecure();
     const { userId: senderId } = useUser();
     const [roomId, setRoomId] = useState('');
-    
+
     //connect to socket.io target room
     useEffect(() => {
         let roomId;
-        if(senderId){
+        if (senderId) {
             roomId = [senderId, receiverId].sort().join('_');
-            socket.emit('joinRoom', {roomId: roomId})
+            socket.emit('joinRoom', { roomId: roomId })
             setRoomId(roomId);
         }
         return () => {
-            if(roomId){
-                socket.emit('leaveRoom', {roomId: roomId})
+            if (roomId) {
+                socket.emit('leaveRoom', { roomId: roomId })
             }
         }
     }, [senderId, receiverId]) //omitting socket as dependency for now
@@ -65,7 +65,7 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
             setStatusText('Uploading image...');
 
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload/bistro-boss?key=${import.meta.env.VITE_imgUploadKey}`, {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgUploadKey}`, {
                     method: 'POST',
                     body: formData
                 })
@@ -87,6 +87,12 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
             }
         }
 
+        //prevent empty message from being sent
+        if (newMessage.image === null && text === '') {
+            Swal.fire({ text: 'There is nothing to send! Either write a message or select a photo.', confirmButtonColor: isDarkTheme && 'var(--gray-light)' });
+            return;
+        }
+
         //finally send the newMessage obj to database for insertion
         setStatusText('Sending message...');
         try {
@@ -97,13 +103,13 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
                 // this _id is temporary, used only for updating message in offline version
                 newMessage._id = uuidv4();////
                 handleSetNewMessage(newMessage);
-                socket.emit('sendMessage', {newMessage, roomId});
+                socket.emit('sendMessage', { newMessage, roomId });
                 form.reset();
             } else {
                 toast.error('Something went wrong. Please try again.');
             }
         }
-        catch(error){
+        catch (error) {
             console.log(error);
         }
     }

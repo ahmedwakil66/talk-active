@@ -1,0 +1,10 @@
+.loader{
+    background: url('https://i.ibb.co/WDPZpNc/pexels-photo-114979.webp') center/cover no-repeat;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    font-weight: 500;
+}

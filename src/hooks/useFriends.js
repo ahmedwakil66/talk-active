@@ -12,7 +12,7 @@ const useFriends = () => {
         enabled: !loading && userId !== undefined,
         queryKey: ['friends', userId],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/friends?userID=${userId}`);
+            const res = await axiosSecure.get(`/users/friends?userId=${userId}`);
             return res.data;
         }
     })

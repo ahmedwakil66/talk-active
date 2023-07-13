@@ -51,7 +51,9 @@
     background-color: rgba(127, 255, 212, 0.9);
 }
 
-
+.single_message.user_text{
+    background-color: rgba(202, 202, 228, 0.9);
+}
 
 
 /* SEND MESSAGE STARTS */

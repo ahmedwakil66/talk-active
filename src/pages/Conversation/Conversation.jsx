@@ -15,6 +15,7 @@ const Conversation = () => {
     const { loading } = useAuth();
     const chatContainerRef = useRef();
     const [messages, setMessages] = useState([]);
+    const [messageLoading, setMessageLoading] = useState(false);
     const [statusText, setStatusText] = useState(null);
     const { data: user, userId, isLoading: isUserLoading } = useUser();
     const { axiosSecure } = useAxiosSecure();
@@ -42,10 +43,12 @@ const Conversation = () => {
     //     }
     // }) //new version below for socket.io . this part will be deleted
     useEffect(() => {
+        setMessageLoading(true);
         (async () => {
             if (!isUserLoading) {
                 const res = await axiosSecure.get(`/messages/${userId}+${receiverId}`);
                 setMessages(res.data);
+                setMessageLoading(false);
             }
         })();
     }, [isUserLoading, userId, receiverId, axiosSecure])
@@ -78,7 +81,7 @@ const Conversation = () => {
 
 
 
-    if (loading || isLoading) {
+    if (loading || isLoading || messageLoading) {
         return <div style={loadingStyle} className='loading-text'>Loading...</div>
     }
 
