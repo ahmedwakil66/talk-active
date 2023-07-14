@@ -1,6 +1,6 @@
 import './Conversations.css';
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { PageContext } from "../../providers/PageProvider";
 import useUser from "../../hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
@@ -44,14 +44,14 @@ const ConversationList = ({ conversation, setHideSidePanel }) => {
 
     return (
         <li className='conversation_link_list'>
-            <Link
+            <NavLink
                 onClick={() => setHideSidePanel(true)}
-                className="conversation_link"
+                className={({isActive}) => isActive ? 'conversation_link active' : 'conversation_link'}
                 to={`/chat/${_id}`}
             >
                 <img src={image} alt={name} />
                 <h4 className='person-name'>{name}</h4>
-            </Link>
+            </NavLink>
         </li>
     )
 }

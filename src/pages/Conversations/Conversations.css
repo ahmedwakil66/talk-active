@@ -8,7 +8,6 @@
     border-bottom: 1px solid;
 }
 
-
 .conversation_link {
     display: flex;
     gap: 10px;
@@ -16,6 +15,10 @@
     align-items: center;
     text-decoration: none;
     transition: .3s all;
+}
+
+.conversation_link.active{
+    color: black;
 }
 
 .conversation_link img {

@@ -32,8 +32,8 @@
     color: var(--gray-light);
 }
 
-.conversation_link:hover {
-    background-color: var(--white-light);
+.conversation_link:hover, .conversation_link.active {
+    background-color: rgba(230, 221, 221, 0.7);
 }
 
 

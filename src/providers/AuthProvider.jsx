@@ -25,9 +25,10 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, user => {
             setUser(user);
+            const token = localStorage.getItem('talkActive-token');
 
             //request for a jwt token
-            if (user) {
+            if (user && !token) {
                 fetch(`${baseUrl}/jwt`, {
                     method: 'POST',
                     headers: {
@@ -38,7 +39,7 @@ const AuthProvider = ({ children }) => {
                     .then(res => res.json())
                     .then(data => localStorage.setItem('talkActive-token', data.token))
             }
-            else {
+            else if(!user) {
                 localStorage.removeItem('talkActive-token');
             }
 

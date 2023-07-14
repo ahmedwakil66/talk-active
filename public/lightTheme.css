@@ -27,7 +27,7 @@
     color: var(--black-deep);
 }
 
-.conversation_link:hover {
+.conversation_link:hover, .conversation_link.active {
     background-color: antiquewhite;
 }
 

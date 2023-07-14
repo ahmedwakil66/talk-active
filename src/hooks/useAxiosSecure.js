@@ -10,34 +10,53 @@ const axiosSecure = axios.create({
 })
 
 const useAxiosSecure = () => {
-    const {logOut} = useAuth();
+    const { logOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect( () => {
-        axiosSecure.interceptors.request.use(config => {
-            const token = localStorage.getItem('talkActive-token');
-            if(token){
+    useEffect(() => {
+        axiosSecure.interceptors.request.use(async(config) => {
+            const token = await waitForToken();
+            // const token = localStorage.getItem('talkActive-token');
+            if (token) {
                 config.headers.authorization = `Bearer ${token}`;
             }
             return config
         })
 
-        axiosSecure.interceptors.response.use(response => response, async(error) => {
+        axiosSecure.interceptors.response.use(response => response, async (error) => {
             console.log('axios error', error);
-            if(error.response && error.response.status === 401){
+            if (error.response && error.response.status === 401) {
                 logOut()
-                .then(() => {
-                    // toast('Session expired');
-                    navigate('/sign-in', {state: {from: location}});
-                })
-                .catch(error => toast.error(error.message))
+                    .then(() => {
+                        // toast('Session expired');
+                        navigate('/sign-in', { state: { from: location } });
+                    })
+                    .catch(error => toast.error(error.message))
             }
             return Promise.reject(error);
         })
     }, [location, logOut, navigate])
-   
-    return {axiosSecure}
+
+    return { axiosSecure }
 };
+
+function waitForToken() {
+    return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('talkActive-token');
+        if (token) {
+            resolve(token);
+        } else {
+            const tokenCheckInterval = setInterval(() => {
+                const updatedToken = localStorage.getItem('talkActive-token');
+                if (updatedToken) {
+                    clearInterval(tokenCheckInterval);
+                    resolve(updatedToken);
+                }
+            }, 100);
+        }
+    });
+}
+
 
 export default useAxiosSecure;

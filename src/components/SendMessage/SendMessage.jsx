@@ -102,6 +102,7 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
                 setStatusText('Message sent');
                 // this _id is temporary, used only for updating message in offline version
                 newMessage._id = uuidv4();////
+                newMessage.created = new Date().getTime();
                 handleSetNewMessage(newMessage);
                 socket.emit('sendMessage', { newMessage, roomId });
                 form.reset();
@@ -114,12 +115,20 @@ const SendMessage = ({ receiverId, setStatusText, socket, handleSetNewMessage })
         }
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            document.getElementById('sendMessageFormBtn').click();
+        }
+    }
+
     return (
         <div className='send_message_container'>
             <form onSubmit={handleSendMessage}>
                 <div className='send_message_form'>
-                    <textarea name="text" rows="1"></textarea>
+                    <textarea onKeyDown={handleKeyDown} name="text" rows="1"></textarea>
                     <button
+                        id='sendMessageFormBtn'
                         type='submit'
                     >
                         <div className='send_icon'><SendIcon /></div>
