@@ -6,7 +6,7 @@ Welcome to "Talk Active client"
 
 ## Features
 * **` Responsive design: `** 
-  > The web app has been made fully responsive for all screen sizes. On mobile, it will give you a native app vibe.
+  > The web app has been made fully responsive for all screen sizes. On mobile, it will give users a native app vibe.
 
 * **` Real-time chat using websocket: `** 
   > The main attraction of this chat app is its ability to communicate in real-time. I have used socket.io, a popular web socket library, to implement this feature.
@@ -19,7 +19,7 @@ Welcome to "Talk Active client"
 
     ***
 
-  ## Used technology name: 
+  ## Used Technologies: 
   > React with react router dom, Tanstack query, AXIOS, Socket.io-client, Firebase, MongoDB, Sweetalert2, React hot toast.
 
-Visit and test:  [Talk-Active](https://talkactive-ca.web.app/)
+Give it a try:  [Talk-Active](https://talkactive-ca.web.app/)
